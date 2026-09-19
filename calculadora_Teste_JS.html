@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>site calculos</title>
+    <style>
+        body{
+            margin-top: 200px;
+            background-color: black;
+            text-align: center;
+        }
+        p{
+            color: aquamarine;
+        }
+        .sei_la{           
+            background-color: blueviolet;
+            height: 50%;
+            position: relative;
+            border-radius: 25px;
+            margin-left: 40%;
+            margin-right: 40%;
+            margin-top: 20px;
+        }
+        h1{
+            color: aquamarine;
+        }
+        .sl{
+            color:darkslateblue; 
+        }
+
+    </style>
+</head>
+<body>
+    <div class="sei_la">
+        <main>
+            <div>
+                <h1>Notas dos alunos</h1>
+                <form class="caixa" method="post">
+                    <p>
+                    nome : <input type="text" id="nome" max="20" minlength="3" 
+                    onChange="javascript:this.value=this.value.toUpperCase();" required autofocus>
+                    </p>
+                    <p>
+                    nota01 : <input type="number" id="nota01" max="16" min="0">
+                    </p>
+                    <p>
+                    nota02 : <input type="number" id="nota02" max="10" min="0">
+                    </p>
+                    <p>
+                    resultado <input type="text" id="situacao" class="sl" ><br><br>
+                    </p>
+                    <p>
+                    situção <input type="text" id="resultado22">
+                    </p>
+        
+                    <button type="button" id="btcalcular" onclick="Calcular()" class="sl">Calcular</button>
+                    <button type="button" id="btcancelar" onclick="Cancelar()" class="sl">Cancelar</button>
+                </form>
+            </div>
+        </main>
+    </div>
+    <script>
+        function Calcular(){
+            var nomeAluno = document.getElementById('nome').value;
+            var nota01 = parseFloat(document.getElementById('nota01').value);
+            var nota02 = parseFloat(document.getElementById('nota02').value);
+            
+            var resultado = (nota01 + nota02) / 2;
+    
+            if (resultado < 4){
+                var diga = "Eita, não foi dessa vez!";
+            } else if (resultado >= 4 && resultado < 6){
+                var diga = "ahh quase";
+            } else if (resultado >= 6){
+                var diga = "aprovado";
+            }
+    
+            document.getElementById('situacao').value =nomeAluno + ", Sua média é " + resultado.toFixed();
+            falar(diga + ", " + nomeAluno + ", Sua média é " + resultado.toFixed(2), "0");
+            document.getElementById('resultado22').value = diga;
+        }
+        
+        function Cancelar(){
+            falar("Limpando Objetos! Aguarde.....", "0");
+            document.getElementById('nome').value = '';
+            document.getElementById('nota01').value = '';
+            document.getElementById('nota02').value = '';
+            document.getElementById('situacao').value = '';
+            document.getElementById('resultado22').value = '';
+            document.getElementById('nome').focus();
+            falar("App pronto para uso!!", "0");
+        }
+        
+        function falar(texto, sexo){
+            const speach = new SpeechSynthesisUtterance();
+            var vozes = speechSynthesis.getVoices();
+            /*speach.text = texto;
+            if(sexo == "0"){
+                speach.voice = vozes[0];
+            }
+            if(sexo == 1){
+                speach.voice = vozes[1];
+            }
+            speach.lang = "pt-br";*/
+            window.speechSynthesis.speak(speach);
+        }
+    </script>
+</body>
+</html>
